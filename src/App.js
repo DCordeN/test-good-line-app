@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+
+function App() {  
+  const VK = window.VK;
+  VK.init({
+    apiId: 7539562
+  });
+  VK.Auth.login(function(response) {
+    if (response.session) {
+      console.log(response.session);
+    }
+  });
+  VK.Api.call('users.get', {user_ids: [1, 2], v:"5.73"}, function(response) {
+    if(response.response) {
+      console.log('Привет, ' + response.response[0].first_name);
+    }
+  });
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
     </div>
   );
 }
+
 
 export default App;
