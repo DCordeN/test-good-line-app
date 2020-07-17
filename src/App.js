@@ -16,8 +16,8 @@ class NavBar extends React.Component {
       <header>
         <nav>
           <form>
-            <input className="Search" type="search" placeholder="Введите запрос" onInput={() => 
-              {this.props.someFun(this.getSearchValue("Search"))}}/>
+            <input className="Search" type="search" placeholder="Поиск" onInput={() => 
+              {this.props.getVKUsers(this.getSearchValue("Search"))}}/>
           </form>
         </nav>
       </header>
@@ -29,19 +29,52 @@ class NavBar extends React.Component {
 class SearchResults extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
-    this.state = {response: []}
+    this.page = 0;
+    this.state = {
+      response: [],
+      clean: this.props.clean
+    }
+    this.handleScroll = this.handleScroll.bind(this);
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillReceiveProps() {
+    this.page = 0;
+  }
+
+
+  handleScroll() {
+    if (document.documentElement.scrollHeight - document.documentElement.clientHeight < document.documentElement.scrollTop) {
+      this.page += 10;
+    }
+    this.setState({clean: false});
   }
   
-  render () {
+  render () {    
+    if (this.state.clean == true) {
+      this.page = 0;
+    }
+    let profiles = [];
     if (this.props.response[0] != undefined) {
+      for (let i = 0; i < 10 + this.page && i < this.props.response.length; i++) {
+        profiles.push(
+          <div className="Profile">
+            <img className="Photos" src={this.props.response[i].photo} />
+            <p className="FirstLastName">  
+              {this.props.response[i].first_name + " " + this.props.response[i].last_name}
+            </p>
+          </div>
+        );
+      }    
       return (
-        <img src={this.props.response[0].photo} />
+        <div className="Results">
+          {profiles}
+        </div>
       );
     }
     else {
       return (
-        <p>Нечего выводить:(</p>
+        <p class="NothingToShow">Введите запрос, чтобы получить список людей!</p>
       )
     }
   }
@@ -51,23 +84,25 @@ class SearchResults extends React.Component {
 class App extends React.Component {        
   constructor(props) {
     super(props);
-    this.state = {response: ''};
+    this.state = {
+      response: '',
+      clean: false
+    };
   }
-  
-  someFun = (value) => {
-    const VK = window.VK;
 
-    let ths = this;
+  getVKUsers = (value) => {
+    const VK = window.VK;
     
-    VK.Api.call('users.search', {q: value, fields: "photo", v:"5.73"}, function(response) {
+    VK.Api.call('users.search', {q: value, fields: "photo", count: 200, v:"5.73"}, function(response) {
       if(response.response) {
         if(response.response.count !== 0) {
-          ths.setState({response: response.response.items});
-          console.log(ths.state.response[0]);
-          console.log('Привет, ' + response.response.items[0].first_name + response.response.items[0].photo);
+          this.setState({
+            response: response.response.items,
+            clean: true
+          });
         }
       }
-  });
+    }.bind(this));
   };
   
   componentDidMount() {
@@ -85,8 +120,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <NavBar someFun={this.someFun} />
-        <SearchResults response={this.state.response} />
+        <NavBar getVKUsers={this.getVKUsers} />
+        <SearchResults response={this.state.response} clean={this.state.clean} />
       </div>
     );
   }

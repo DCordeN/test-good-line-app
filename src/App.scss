@@ -1,9 +1,10 @@
 .App {
-  text-align: center;
+  box-sizing: border-box;
 }
 
 header {
-  margin-top: 1rem;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 input {
@@ -13,3 +14,34 @@ input {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: medium;
 }
+
+.NothingToShow {
+  text-align: center;
+  margin-top: 10rem;
+}
+
+.Results {
+  margin-top: 2rem;
+}
+
+.Profile {
+  display: block;
+  margin-top: 1rem;
+  margin-left: 37rem;
+}
+
+.FirstLastName {
+  display: inline-block;
+  vertical-align: bottom;
+  padding-left: 4rem;
+}
+
+.Photos {
+  height: 3rem;
+  width: 3rem;
+  margin-left: 3rem;
+}
+
+
+
+
