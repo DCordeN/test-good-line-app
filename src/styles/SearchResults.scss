@@ -1,0 +1,50 @@
+.NothingToShow {
+  text-align: center;
+  margin-top: 10rem;
+}
+
+.Results {
+  margin-top: 2rem;
+}
+
+.Profile {
+  display: block;
+  margin-top: 1rem;
+  margin-left: 37rem;
+}
+
+.FirstLastName {
+  display: inline-block;
+  vertical-align: bottom;
+  padding-left: 4rem;
+}
+
+.Photos {
+  height: 3rem;
+  width: 3rem;
+  margin-left: 3rem;
+}
+
+.BackButton {
+  display: block;
+  margin-left: 30rem;
+  font-size: medium;
+  height: 1.5rem;
+  background-color: rgba($color: #0842534d, $alpha: 1.0);
+  border: none;
+  color: rgba($color: #ffffff7c, $alpha: 1.0);
+  border-radius: 5px;
+  outline: none;
+}
+
+.Desk {
+  display: inline-block;
+  vertical-align: 3rem;
+  margin-left: 3rem;
+}
+
+.Avatar {
+  display: inline-block;
+  margin-top: 2rem;
+  margin-left: 35rem;
+}
