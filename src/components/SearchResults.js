@@ -24,7 +24,6 @@ export class SearchResults extends React.Component {
     this.page = 0;
   }
 
-
   handleScroll() {
     if (document.documentElement.scrollHeight - document.documentElement.clientHeight < document.documentElement.scrollTop) {
       this.page += 10;
@@ -59,16 +58,7 @@ export class SearchResults extends React.Component {
     if (this.state.profile != null) {
       if (this.state.profile.bdate != undefined) {
         return (
-          <div className="PickedProfile">
-            <button onClick={this.backClick} className="BackButton">←Назад</button>
-            <img src={this.state.profile.photo_max} className="Avatar" />
-            <div className="Desk">
-              <p className="Id">id: {this.state.profile.id}</p>
-              <p className="FirstName">Имя: {this.state.profile.first_name}</p>
-              <p className="LastName">Фамилия: {this.state.profile.last_name}</p>
-              <p className="Bdate">Дата рождения: {this.state.profile.bdate}</p>
-            </div>
-          </div>
+          <PickedProfile backClick={this.backClick} profile={this.state.profile}/>
         )
       }
       else {
@@ -89,12 +79,10 @@ export class SearchResults extends React.Component {
     if (this.props.response[0] != undefined) {
       for (let i = 0; i < 10 + this.page && i < this.props.response.length; i++) {
         profiles.push(
-          <div className="Profile" onClick={() => this.handleClick(this.props.response[i].id)}>
-            <img className="Photos" src={this.props.response[i].photo} />
-            <p className="FirstLastName">  
-              {this.props.response[i].first_name + " " + this.props.response[i].last_name}
-            </p>
-          </div>
+          <Profile 
+            handleClick={() => this.handleClick(this.props.response[i].id)} 
+            response={this.props.response[i]}
+          />
         );
       }    
 
@@ -110,4 +98,29 @@ export class SearchResults extends React.Component {
       )
     }
   }
+}
+
+function Profile(props) {
+  return (
+    <div className="Profile" onClick={() => props.handleClick(props.response.id)}>
+      <img className="Photos" src={props.response.photo} />
+      <p className="FirstLastName">  
+        {props.response.first_name + " " + props.response.last_name}
+      </p>
+    </div>
+  );
+}
+
+function PickedProfile(props) {
+  return (
+    <div className="PickedProfile">
+      <button onClick={props.backClick} className="BackButton">Назад</button>
+      <img src={props.profile.photo_max} className="Avatar" />
+      <div className="Desk">
+        <p className="Id">id: {props.profile.id}</p>
+        <p className="FirstName">Имя: {props.profile.first_name}</p>
+        <p className="LastName">Фамилия: {props.profile.last_name}</p>
+      </div>
+    </div>
+  )
 }
