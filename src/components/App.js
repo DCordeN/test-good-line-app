@@ -35,6 +35,17 @@ class App extends React.Component {
     VK.init({
       apiId: 7539562
     });
+    
+    VK.Auth.getLoginStatus(function(response) {
+      if (response.status === "unknown") {
+        console.log(response.status);
+        VK.Auth.login(function(response) {	
+          if (response.session) {	
+            console.log(response);
+          }	
+        });
+      }
+    });
   }
 
   render() {
