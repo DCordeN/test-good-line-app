@@ -25,13 +25,12 @@ export class NavBar extends React.Component {
     return (
       <header>
         <nav>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <input 
               className="Search" 
               type="search" 
               placeholder="Поиск" 
               onChange={this.handleInput}
-              onSubmit={this.handleSubmit}
             />
           </form>
         </nav>
