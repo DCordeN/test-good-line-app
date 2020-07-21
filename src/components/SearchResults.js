@@ -5,12 +5,15 @@ import '../styles/SearchResults.scss';
 export class SearchResults extends React.Component {
   constructor(props) {
     super(props);
+    
     this.page = 0;
+
     this.state = {
       response: this.props.response,
       clean: this.props.clean,
       profile: this.props.profile
     };
+
     this.handleScroll = this.handleScroll.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.backClick = this.backClick.bind(this);
@@ -29,17 +32,8 @@ export class SearchResults extends React.Component {
     this.setState({clean: false});
   }
 
-  handleClick(e) {
+  handleClick(id) {
     const VK = window.VK;
-    
-    let id;
-    let parent = e.target.parentElement;
-    for (let i = 0; i < this.props.response.length; i++) {
-      if (parent.children[0].src == this.props.response[i].photo) {
-        id = this.props.response[i].id;
-        break;
-      }
-    }
   
     VK.Api.call('users.get', {user_ids: id, fields: ['photo_max', 'bdate'], v:"5.73"}, function(response) {
       if(response.response) {
@@ -95,7 +89,7 @@ export class SearchResults extends React.Component {
     if (this.props.response[0] != undefined) {
       for (let i = 0; i < 10 + this.page && i < this.props.response.length; i++) {
         profiles.push(
-          <div className="Profile" onClick={this.handleClick}>
+          <div className="Profile" onClick={() => this.handleClick(this.props.response[i].id)}>
             <img className="Photos" src={this.props.response[i].photo} />
             <p className="FirstLastName">  
               {this.props.response[i].first_name + " " + this.props.response[i].last_name}
