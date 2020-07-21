@@ -5,11 +5,20 @@ import '../styles/NavBar.scss'
 export class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
+
+    this.state = {value: ''};
+    
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  getSearchValue(className) {
-    return document.getElementsByClassName(className)[0].value;
+  handleInput(event) {
+    this.props.getVKUsers(event.target.value);
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
   }
   
   render() {
@@ -17,8 +26,13 @@ export class NavBar extends React.Component {
       <header>
         <nav>
           <form>
-            <input className="Search" type="search" placeholder="Поиск" onInput={() => 
-              {this.props.getVKUsers(this.getSearchValue("Search"))}}/>
+            <input 
+              className="Search" 
+              type="search" 
+              placeholder="Поиск" 
+              onChange={this.handleInput}
+              onSubmit={this.handleSubmit}
+            />
           </form>
         </nav>
       </header>

@@ -37,7 +37,6 @@ class App extends React.Component {
     });
     
     VK.Auth.getLoginStatus(function(response) {
-      console.log(response);
       if (response.status === "unknown" || response.status === "not_authorized") {          
         VK.Auth.login(function(response) {	
 
