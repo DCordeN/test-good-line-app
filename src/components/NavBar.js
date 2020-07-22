@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import '../styles/NavBar.scss'
+import {throttle} from 'lodash';
+import '../styles/NavBar.scss';
 
 
 export class NavBar extends React.Component {
@@ -9,8 +10,14 @@ export class NavBar extends React.Component {
     this.state = {value: ''};
     
     this.handleInput = this.handleInput.bind(this);
+    this.handleInputThrolled = throttle(this.handleInput, 2000)
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  _onChange = (e) => {
+    e.persist();
+    this.handleInputThrolled(e);
+  }; 
 
   handleInput(event) {
     this.props.getVKUsers(event.target.value);
@@ -30,7 +37,7 @@ export class NavBar extends React.Component {
               className="Search" 
               type="search" 
               placeholder="Поиск" 
-              onChange={this.handleInput}
+              onChange={this._onChange}
             />
           </form>
         </nav>

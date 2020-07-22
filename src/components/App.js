@@ -13,7 +13,7 @@ class App extends React.Component {
       clean: false,
       profile: null
     };
-  }
+  }  
 
   getVKUsers = (value) => {
     const VK = window.VK;
@@ -29,6 +29,7 @@ class App extends React.Component {
         }
       }
     }.bind(this));
+
   };
   
   componentDidMount() {

@@ -49,6 +49,7 @@ export class SearchResults extends React.Component {
     this.setState({profile: null});
   }
 
+
   
   render() {    
     if (this.state.clean == true) {
