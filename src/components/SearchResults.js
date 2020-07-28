@@ -104,7 +104,7 @@ export class SearchResults extends React.Component {
 function Profile(props) {
   return (
     <div className="profile" onClick={() => props.handleClick(props.response.id)}>
-      <img className="profile__photos" src={props.response.photo} />
+      <img className="profile__avatar" src={props.response.photo} />
       <p className="profile__first-last-name">  
         {props.response.first_name + " " + props.response.last_name}
       </p>
