@@ -64,13 +64,13 @@ export class SearchResults extends React.Component {
       }
       else {
         return (
-          <div className="PickedProfile">
-            <button onClick={this.backClick} className="BackButton">Назад</button>
-            <img src={this.state.profile.photo_max} className="Avatar" />
-            <div className="Desk">
-              <p className="Id">id: {this.state.profile.id}</p>
-              <p className="FirstName">Имя: {this.state.profile.first_name}</p>
-              <p className="LastName">Фамилия: {this.state.profile.last_name}</p>
+          <div className="profile-picked">
+            <button onClick={this.backClick} className="button-back">Назад</button>
+            <img src={this.state.profile.photo_max} className="profile-picked__avatar" />
+            <div className="profile-picked__description">
+              <p className="description__id">id: {this.state.profile.id}</p>
+              <p className="description__first-name">Имя: {this.state.profile.first_name}</p>
+              <p className="description__last-name">Фамилия: {this.state.profile.last_name}</p>
             </div>
           </div>
         )
@@ -88,14 +88,14 @@ export class SearchResults extends React.Component {
       }    
 
       return (
-        <div className="Results">
+        <div className="results">
           {profiles}
         </div>
       )
     }
     else {
       return (
-        <p className="NothingToShow">Введите запрос, чтобы получить список людей!</p>
+        <p className="text-nothing-to-show">Введите запрос, чтобы получить список людей!</p>
       )
     }
   }
@@ -103,9 +103,9 @@ export class SearchResults extends React.Component {
 
 function Profile(props) {
   return (
-    <div className="Profile" onClick={() => props.handleClick(props.response.id)}>
-      <img className="Photos" src={props.response.photo} />
-      <p className="FirstLastName">  
+    <div className="profile" onClick={() => props.handleClick(props.response.id)}>
+      <img className="profile__photos" src={props.response.photo} />
+      <p className="profile__first-last-name">  
         {props.response.first_name + " " + props.response.last_name}
       </p>
     </div>
@@ -114,13 +114,13 @@ function Profile(props) {
 
 function PickedProfile(props) {
   return (
-    <div className="PickedProfile">
-      <button onClick={props.backClick} className="BackButton">Назад</button>
-      <img src={props.profile.photo_max} className="Avatar" />
-      <div className="Desk">
-        <p className="Id">id: {props.profile.id}</p>
-        <p className="FirstName">Имя: {props.profile.first_name}</p>
-        <p className="LastName">Фамилия: {props.profile.last_name}</p>
+    <div className="profile-picked">
+      <button onClick={props.backClick} className="button-back">Назад</button>
+      <img src={props.profile.photo_max} className="profile-picked__avatar" />
+      <div className="profile-picked__description">
+        <p className="description__id">id: {props.profile.id}</p>
+        <p className="description__first-name">Имя: {props.profile.first_name}</p>
+        <p className="description__last-name">Фамилия: {props.profile.last_name}</p>
       </div>
     </div>
   )

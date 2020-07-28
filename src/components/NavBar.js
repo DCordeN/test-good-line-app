@@ -32,9 +32,9 @@ export class NavBar extends React.Component {
     return (
       <header>
         <nav>
-          <form onSubmit={this.handleSubmit}>
+          <form className="search-form" onSubmit={this.handleSubmit}>
             <input 
-              className="Search" 
+              className="search-form__input" 
               type="search" 
               placeholder="Поиск" 
               onChange={this._onChange}

@@ -1,13 +1,13 @@
 header {
+  margin-top: 2rem;  
   text-align: center;
-  margin-top: 2rem;
 }
 
-input {
+.search-form__input {  
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: medium;
   border-radius: 7.5px;
   border-color: rgba($color: #0a7baf, $alpha: 1.0);
   outline: none;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: medium;
 }
 

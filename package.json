@@ -51,7 +51,6 @@
     "react-dom": "^16.13.1",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",
-    "sass-loader": "8.0.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "2.3.5",
@@ -84,7 +83,7 @@
   },
   "devDependencies": {
     "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.2"
+    "sass-loader": "^8.0.2"
   },
   "jest": {
     "roots": [

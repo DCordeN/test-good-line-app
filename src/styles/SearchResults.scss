@@ -1,50 +1,50 @@
-.NothingToShow {
+.results {
+  margin-top: 2rem;
+}
+
+.profile {
+  display: block;
+  margin-top: 2rem;
+  margin-left: 48rem;
+}
+
+.profile__first-last-name {
+  display: inline-block;  
+  padding-left: 4rem;
+  vertical-align: bottom;
+}
+
+.profile__photos {
+  height: 4rem;
+  width: 4rem;
+  margin-left: 3rem;
+}
+
+.text-nothing-to-show {
   text-align: center;
   margin-top: 10rem;
 }
 
-.Results {
-  margin-top: 2rem;
-}
-
-.Profile {
-  display: block;
-  margin-top: 1rem;
-  margin-left: 37rem;
-}
-
-.FirstLastName {
-  display: inline-block;
-  vertical-align: bottom;
-  padding-left: 4rem;
-}
-
-.Photos {
-  height: 3rem;
-  width: 3rem;
-  margin-left: 3rem;
-}
-
-.BackButton {
-  display: block;
-  margin-left: 30rem;
-  font-size: medium;
+.button-back {
+  display: block;  
   height: 1.5rem;
+  margin-left: 35rem;  
+  color: rgba($color: #ffffff7c, $alpha: 1.0);
+  font-size: medium;
   background-color: rgba($color: #0842534d, $alpha: 1.0);
   border: none;
-  color: rgba($color: #ffffff7c, $alpha: 1.0);
   border-radius: 5px;
   outline: none;
 }
 
-.Desk {
-  display: inline-block;
-  vertical-align: 3rem;
+.profile-picked__description {
+  display: inline-block;  
   margin-left: 3rem;
+  vertical-align: 3rem;
 }
 
-.Avatar {
+.profile-picked__avatar {
   display: inline-block;
-  margin-top: 2rem;
-  margin-left: 35rem;
+  margin-top: 3rem;
+  margin-left: 45rem;
 }
