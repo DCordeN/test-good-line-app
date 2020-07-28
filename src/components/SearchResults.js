@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import {VK} from '../utils/consts.js';
 import '../styles/SearchResults.scss';
 
 
@@ -6,34 +7,33 @@ export class SearchResults extends React.Component {
   constructor(props) {
     super(props);
     
-    this.page = 0;
+    this.offset = 0;
 
     this.state = {
       response: this.props.response,
-      clean: this.props.clean,
       profile: this.props.profile
     };
 
     this.handleScroll = this.handleScroll.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.backClick = this.backClick.bind(this);
+
     window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillReceiveProps() {
-    this.page = 0;
+    this.offset = 0;
   }
 
   handleScroll() {
-    if (document.documentElement.scrollHeight - document.documentElement.clientHeight < document.documentElement.scrollTop) {
-      this.page += 10;
+    if (document.documentElement.scrollHeight - document.documentElement.clientHeight === document.documentElement.scrollTop) {
+      this.offset += 10;
     }
-    this.setState({clean: false});
+
+    //тут сделать вызов ф-ии колбэка
   }
 
-  handleClick(id) {
-    const VK = window.VK;
-  
+  handleClick(id) {  
     VK.Api.call('users.get', {user_ids: id, fields: ['photo_max', 'bdate'], v:"5.73"}, function(response) {
       if(response.response) {
         if(response.response.count !== 0) {
@@ -49,13 +49,8 @@ export class SearchResults extends React.Component {
     this.setState({profile: null});
   }
 
-
   
   render() {    
-    if (this.state.clean == true) {
-      this.page = 0;
-    }      
-
     if (this.state.profile != null) {
       if (this.state.profile.bdate != undefined) {
         return (
@@ -76,17 +71,13 @@ export class SearchResults extends React.Component {
         )
       }
     }
-    let profiles = [];
-    if (this.props.response[0] != undefined) {
-      for (let i = 0; i < 10 + this.page && i < this.props.response.length; i++) {
-        profiles.push(
-          <Profile 
-            handleClick={() => this.handleClick(this.props.response[i].id)} 
-            response={this.props.response[i]}
-          />
-        );
-      }    
-
+    const profiles = this.props.response.map(user => 
+      <Profile
+        handleClick={() => this.handleClick(user.id)}
+        response={user}
+      />
+    );
+    if (this.props.response[0] != undefined) {  
       return (
         <div className="results">
           {profiles}
@@ -103,7 +94,7 @@ export class SearchResults extends React.Component {
 
 function Profile(props) {
   return (
-    <div className="profile" onClick={() => props.handleClick(props.response.id)}>
+    <div className="profile" onClick={props.handleClick}>
       <img className="profile__avatar" src={props.response.photo} />
       <p className="profile__first-last-name">  
         {props.response.first_name + " " + props.response.last_name}
