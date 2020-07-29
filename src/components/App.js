@@ -11,44 +11,10 @@ class App extends React.Component {
     
     this.state = {
       inputValue: "",
-      response: [],
+      users: [],
       profile: null
     };
-  }  
-
-  getVKUsers = (inputValue) => {
-    this.state.response = [];
-
-    VK.Api.call('users.search', {q: inputValue, fields: "photo", count: 10, v: "5.73"}, function(response) {
-      if(response.response) {
-        this.setState({
-          inputValue: inputValue,
-          response: response.response.items,
-          profile: null
-        });
-        console.log(this.state.response);
-      }
-    }.bind(this));
-
-  };
-
-  getVKUsersOffset = (offset) => {
-    VK.Api.call('users.search', {q: this.state.inputValue, fields: "photo", count: 10, offset: offset, v: "5.73"}, function(resp) {
-      if (resp.response) {
-        let newResponse = this.state.response;
-
-        resp.response.items.forEach(element => {
-          newResponse.push(element);
-        });
-
-        console.log(this.state.response);
-
-        this.setState({
-          response: newResponse
-        });
-      }
-    }.bind(this));
-  }
+  }    
   
   componentDidMount() {
     VK.init({
@@ -62,14 +28,44 @@ class App extends React.Component {
     });
   }
 
+  getVKUsers = (inputValue) => {
+    this.state.users = [];
+
+    VK.Api.call('users.search', {q: inputValue, fields: "photo", count: 10, v: "5.73"}, function(response) {
+      if(response.response) {
+        this.setState({
+          inputValue: inputValue,
+          users: response.response.items,
+          profile: null
+        });
+      }
+    }.bind(this));
+
+  };
+
+  getVKUsersOffset = (offset) => {
+    VK.Api.call('users.search', {q: this.state.inputValue, fields: "photo", count: 10, offset: offset, v: "5.73"}, function(response) {
+      if (response.response) {
+        let newUsers = this.state.users;
+        response.response.items.forEach(element => {
+          newUsers.push(element);
+        });
+
+        this.setState({
+          users: newUsers
+        });
+      }
+    }.bind(this));
+  }
+
   render() {
     return (
       <div className="App">
         <NavBar getVKUsers={this.getVKUsers} />
-        <SearchResults 
-          response={this.state.response} 
-          profile={null} 
+        <SearchResults           
           inputValue={this.state.inputValue}
+          users={this.state.users} 
+          profile={null} 
           getVKUsersOffset={this.getVKUsersOffset}
         />
       </div>
