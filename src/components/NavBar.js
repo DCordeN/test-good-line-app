@@ -7,7 +7,7 @@ export class NavBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {value: ''};
+    this.state = {inputValue: ''};
     
     this.handleInput = this.handleInput.bind(this);
     this.handleInputThrolled = throttle(this.handleInput, 2000)
@@ -21,7 +21,7 @@ export class NavBar extends React.Component {
 
   handleInput(event) {
     this.props.getVKUsers(event.target.value);
-    this.setState({value: event.target.value});
+    this.setState({inputValue: event.target.value});
   }
 
   handleSubmit(event) {

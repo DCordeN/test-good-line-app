@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import {VK} from '../utils/consts.js';
 import '../styles/SearchResults.scss';
+import {throttle} from 'lodash';
 
 
 export class SearchResults extends React.Component {
@@ -21,16 +22,12 @@ export class SearchResults extends React.Component {
     window.addEventListener('scroll', this.handleScroll);
   }
 
-  componentWillReceiveProps() {
-    this.offset = 0;
-  }
-
   handleScroll() {
-    if (document.documentElement.scrollHeight - document.documentElement.clientHeight === document.documentElement.scrollTop) {
+    if (document.documentElement.scrollHeight - document.documentElement.scrollTop === document.documentElement.clientHeight) {
       this.offset += 10;
+      this.props.getVKUsersOffset(this.offset);
+      window.scrollBy(0, -30);
     }
-
-    //тут сделать вызов ф-ии колбэка
   }
 
   handleClick(id) {  
